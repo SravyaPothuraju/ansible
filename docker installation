@@ -1,0 +1,13 @@
+- name: Install Docker.io
+  hosts: your_target_hosts
+  become: yes
+ 
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+ 
+    - name: Install Docker.io package
+      apt:
+        name: docker.io
+        state: present
