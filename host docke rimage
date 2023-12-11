@@ -1,0 +1,21 @@
+---
+- name: Pull and Run Jenkins Docker Container
+  hosts: okate
+  become: yes
+ 
+  tasks:
+    - name: Install Docker
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker.io
+ 
+    - name: Pull Jenkins Docker Image
+      become: yes
+      command: "docker pull jenkins/jenkins:lts"
+ 
+    - name: Run Jenkins Docker Container
+      become: yes
+      command: "docker run -d -p 8000:8080 --name your_jenkins_container_name jenkins/jenkins:lts"
