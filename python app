@@ -1,0 +1,19 @@
+---
+- name: Deploy Python Flask Application
+  hosts: hosts
+  become: yes  # Optionally, become sudo for executing commands
+
+  tasks:
+    - name: Transfer Flask application files to remote host
+      copy:
+        src: /home/ubuntu/project  # Update the source path
+        dest: /tmp # Update the destination path
+        mode: '0755'  # Adjust permissions as needed
+
+    - name: Install Flask and dependencies
+      pip:
+        name: flask
+        state: present
+
+    - name: Run Flask application
+      command: "python3 /tmp/project/app.py flask run --host=0.0.0.0 --port=5128"
